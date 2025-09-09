@@ -5,7 +5,9 @@
 int main()
 {
     std::cout << "Hello, OpenCV!" << std::endl;
-    
+     // 添加内存错误测试
+    int arr[10];
+    arr[15] = 42;  // 缓冲区溢出 - AddressSanitizer 会检测到
     // 尝试多个可能的图片路径
     std::vector<std::filesystem::path> possible_paths = {
         "test.jpg",  // 当前目录
