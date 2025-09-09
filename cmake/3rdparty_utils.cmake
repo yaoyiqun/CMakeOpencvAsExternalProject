@@ -4,7 +4,10 @@
 # 通用函数：配置3rdparty目录下的任意项目
 function(configure_3rdparty_project PROJECT_NAME THIRDPARTY_NAME)
     # 解析可选参数
+    set(options "")
     set(oneValueArgs CMAKE_FILE)
+    set(multiValueArgs "")
+    cmake_parse_arguments(ARGS "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
     
     # 检查3rdparty目录是否存在
     set(THIRDPARTY_SOURCE_DIR ${CMAKE_SOURCE_DIR}/3rdparty/${THIRDPARTY_NAME})
@@ -23,8 +26,8 @@ function(configure_3rdparty_project PROJECT_NAME THIRDPARTY_NAME)
     )
     
     # 添加自定义CMAKE_FILE（如果提供）
-    if(CMAKE_FILE)
-        set(CMAKE_FILE_PATH ${CMAKE_SOURCE_DIR}/cmake/${CMAKE_FILE})
+    if(ARGS_CMAKE_FILE)
+        set(CMAKE_FILE_PATH ${CMAKE_SOURCE_DIR}/cmake/${ARGS_CMAKE_FILE})
         if(EXISTS ${CMAKE_FILE_PATH})
             list(APPEND CMAKE_ARGS_LIST -C ${CMAKE_FILE_PATH})
         else()
