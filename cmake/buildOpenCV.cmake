@@ -1,5 +1,5 @@
 # buildOpenCV.cmake
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
+#set(CMAKE_BUILD_TYPE "Release" CACHE STRING "")
 set(BUILD_opencv_world ON CACHE BOOL "")
 set(BUILD_opencv_python_bindings_generator OFF CACHE BOOL "")
 set(BUILD_TESTS OFF CACHE BOOL "")
@@ -7,6 +7,7 @@ set(BUILD_PERF_TESTS OFF CACHE BOOL "")
 set(WITH_CUDA OFF CACHE BOOL "")
 set(WITH_IPP OFF CACHE BOOL "")
 set(WITH_TBB OFF CACHE BOOL "")
+set(WITH_ADE OFF CACHE BOOL "")
 set(WITH_GAPI OFF CACHE BOOL "")
 # 禁用一些有问题的模块以避免编译错误
 set(BUILD_opencv_dnn OFF CACHE BOOL "")
