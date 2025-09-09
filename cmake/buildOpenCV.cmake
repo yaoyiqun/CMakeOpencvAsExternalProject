@@ -9,6 +9,7 @@ set(WITH_IPP OFF CACHE BOOL "")
 set(WITH_TBB OFF CACHE BOOL "")
 set(WITH_ADE ON CACHE BOOL "")
 set(WITH_GAPI ON CACHE BOOL "")
+set(WITH_VTK OFF CACHE BOOL "")
 # 禁用一些有问题的模块以避免编译错误
 set(BUILD_opencv_dnn OFF CACHE BOOL "")
 set(BUILD_opencv_ml OFF CACHE BOOL "")

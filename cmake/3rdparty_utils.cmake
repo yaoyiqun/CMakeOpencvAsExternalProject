@@ -19,30 +19,29 @@ function(configure_3rdparty_project PROJECT_NAME THIRDPARTY_NAME)
     set(${PROJECT_NAME}_${THIRDPARTY_NAME}_BUILD_DIR ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-${THIRDPARTY_NAME}-build)
     set(${PROJECT_NAME}_${THIRDPARTY_NAME}_INSTALL_DIR ${CMAKE_BINARY_DIR}/${PROJECT_NAME}-${THIRDPARTY_NAME}-install)
     
-    # 准备CMAKE_ARGS
-    set(CMAKE_ARGS_LIST
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        -DCMAKE_INSTALL_PREFIX=${${PROJECT_NAME}_${THIRDPARTY_NAME}_INSTALL_DIR}
-    )
-    
-    # 添加自定义CMAKE_FILE（如果提供）
-    if(ARGS_CMAKE_FILE)
-        set(CMAKE_FILE_PATH ${CMAKE_SOURCE_DIR}/cmake/${ARGS_CMAKE_FILE})
-        if(EXISTS ${CMAKE_FILE_PATH})
-            list(APPEND CMAKE_ARGS_LIST -C ${CMAKE_FILE_PATH})
-        else()
-            message(WARNING "Custom cmake file not found: ${CMAKE_FILE_PATH}")
-        endif()
-    endif()
-    
-    # 声明并配置项目
+    # 声明项目
     FetchContent_Declare(
         ${PROJECT_NAME}_${THIRDPARTY_NAME}
         SOURCE_DIR ${THIRDPARTY_SOURCE_DIR}
         BINARY_DIR ${${PROJECT_NAME}_${THIRDPARTY_NAME}_BUILD_DIR}
         INSTALL_DIR ${${PROJECT_NAME}_${THIRDPARTY_NAME}_INSTALL_DIR}
-        CMAKE_ARGS ${CMAKE_ARGS_LIST}
     )
+    
+    # 在FetchContent_MakeAvailable之前设置构建选项
+    set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
+    set(CMAKE_INSTALL_PREFIX ${${PROJECT_NAME}_${THIRDPARTY_NAME}_INSTALL_DIR})
+    
+    # 添加自定义CMAKE_FILE（如果提供）
+    if(ARGS_CMAKE_FILE)
+        set(CMAKE_FILE_PATH ${CMAKE_SOURCE_DIR}/cmake/${ARGS_CMAKE_FILE})
+        if(EXISTS ${CMAKE_FILE_PATH})
+            # 直接include cmake文件来设置选项
+            include(${CMAKE_FILE_PATH})
+            message(STATUS "Loaded custom cmake file: ${CMAKE_FILE_PATH}")
+        else()
+            message(WARNING "Custom cmake file not found: ${CMAKE_FILE_PATH}")
+        endif()
+    endif()
     
     # 使项目可用
     FetchContent_MakeAvailable(${PROJECT_NAME}_${THIRDPARTY_NAME})
