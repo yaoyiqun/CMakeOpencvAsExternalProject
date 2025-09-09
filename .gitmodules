@@ -1,0 +1,6 @@
+[submodule "3rdparty/ade"]
+	path = 3rdparty/ade
+	url = https://github.com/opencv/ade.git
+[submodule "3rdparty/opencv"]
+	path = 3rdparty/opencv
+	url = https://github.com/opencv/opencv.git
