@@ -40,5 +40,5 @@ endif()
 
 # 主目标
 add_executable(my_app src/helloopencv.cpp)
-
+target_include_directories(my_app PRIVATE ${OpenCV_DIR}/include)
 target_link_libraries(my_app PRIVATE  ${OpenCV_LIBS})
